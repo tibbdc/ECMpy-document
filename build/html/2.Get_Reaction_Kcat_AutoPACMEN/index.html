@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.Get Reaction Kcat Using AutoPACMEN &mdash; ECMpy2.0-RTD v2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.Get Reaction Kcat Using DLKcat" href="../3.Get_Reaction_Kcat_DLKcat/index.html" />
+    <link rel="prev" title="1.Model Preview" href="../1.Model_Preview/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ECMpy2.0-RTD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1.Model_Preview/index.html">1.Model Preview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2.Get Reaction Kcat Using AutoPACMEN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-get-bigg-metbolite">Step 1: get bigg metbolite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-brenda-kcat">Step 2: BRENDA kcat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-select-brenda-kcat-for-model">Step 3: Select Brenda kcat for model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-sabio-rk-kcat-for-model">Step 4: SABIO-RK kcat for model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-brenda-and-sabio-rk-kcat-combined">Step 5: Brenda and SABIO-RK kcat combined</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-6-subunit-number-of-each-reaction">Step 6: subunit number of each reaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-7-get-mw-for-model-gene-must-be-uniprot-id">Step 7: get mw for model gene (must be uniprot ID)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-8-kcat-assignment-for-model-include-sa">Step 8: kcat assignment for model(include sa)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-9-get-reaction-kcat-mw-for-model">Step 9: get_reaction_kcat_mw for model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../3.Get_Reaction_Kcat_DLKcat/index.html">3.Get Reaction Kcat Using DLKcat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.EcModel_Calibration/index.html">4.EcModel Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.EcModel_Analysis/index.html">5.EcModel Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.EcModel_Analysis/index.html#trade-off-simulation">Trade-off simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.EcModel_ME/index.html">6.EcModel_ME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.EcModel_ME/index.html#determine-targets-based-on-fesof">Determine targets based on FESOF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7.One_click_modeling/index.html">7. One Click Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoPACMEN_function.html">AutoPACMEN_function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ECMpy_function.html">ECMpy_function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_ecGEM_onestop.html">get_ecGEM_onestop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../prediction_for_input.html">prediction_for_input</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ECMpy2.0-RTD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">2.Get Reaction Kcat Using AutoPACMEN</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/2.Get_Reaction_Kcat_AutoPACMEN/index.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="get-reaction-kcat-using-autopacmen">
+<h1>2.Get Reaction Kcat Using AutoPACMEN<a class="headerlink" href="#get-reaction-kcat-using-autopacmen" title="Permalink to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cobra</span>
+<span class="kn">import</span> <span class="nn">datetime</span> 
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./script/&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">AutoPACMEN_function</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ECMpy_function</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># input files</span>
+<span class="n">autopacmen_folder</span> <span class="o">=</span> <span class="s2">&quot;./analysis/get_kcat_mw_by_AutoPACMEN/&quot;</span>
+<span class="n">kcat_gap_fill</span><span class="o">=</span> <span class="s1">&#39;mean&#39;</span><span class="c1">#&#39;mean&#39;#&#39;median&#39;</span>
+<span class="n">reaction_gap_fill</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span>
+<span class="n">sbml_path</span> <span class="o">=</span> <span class="s2">&quot;./data/iML1515_new.xml&quot;</span>
+<span class="n">organism</span> <span class="o">=</span> <span class="s2">&quot;Escherichia coli&quot;</span>
+<span class="n">project_name</span> <span class="o">=</span> <span class="s2">&quot;iML1515_</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">kcat_gap_fill</span>
+<span class="n">create_file</span><span class="p">(</span><span class="n">autopacmen_folder</span><span class="p">)</span>
+<span class="n">protein_kcat_database_path</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+<span class="n">bigg_metabolites_file</span> <span class="o">=</span> <span class="s2">&quot;./data/bigg_models_metabolites.txt&quot;</span><span class="c1">#date:20230629 http://bigg.ucsd.edu/static/namespace/bigg_models_metabolites.txt</span>
+<span class="n">brenda_textfile_path</span> <span class="o">=</span> <span class="s2">&quot;./data/brenda_2023_1.txt&quot;</span><span class="c1">#date:20230427 https://www.brenda-enzymes.org/brenda_download/file_download.php</span>
+<span class="n">uniprot_data_file</span><span class="o">=</span><span class="s1">&#39;./data/uniprot_data_accession_key.json&#39;</span><span class="c1">#from uniprot</span>
+
+<span class="c1">#output files</span>
+<span class="n">brenda_json_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">kcat_database_brenda.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">brenda_json_path2</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">sa_database_brenda.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">sabio_rk_json_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">kcat_database_sabio_rk.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">bigg_id_name_mapping_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">bigg_id_name_mapping.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">brenda_output_json_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">kcat_database_brenda_for_model.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">combined_output_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">kcat_database_combined.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">sub_description_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">get_gene_subunitDescription.csv&#39;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">gene_subnum_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">gene_subnum.csv&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">reaction_mw_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">reaction_mw.json&quot;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+<span class="n">reaction_kcat_mw_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">reaction_kcat_MW.csv&#39;</span><span class="o">%</span><span class="n">autopacmen_folder</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Path</span> <span class="n">exists</span>
+</pre></div>
+</div>
+<section id="step-1-get-bigg-metbolite">
+<h2>Step 1: get bigg metbolite<a class="headerlink" href="#step-1-get-bigg-metbolite" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 1: get bigg metbolite</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to deal BIGG metabolites text file...&quot;</span><span class="p">)</span>
+<span class="n">parse_bigg_metabolites_file</span><span class="p">(</span><span class="n">bigg_metabolites_file</span><span class="p">,</span> <span class="n">autopacmen_folder</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BIGG metabolites text file done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to deal BIGG metabolites text file...
+BIGG metabolites text file done!
+
+0:00:00.073214
+</pre></div>
+</div>
+</section>
+<section id="step-2-brenda-kcat">
+<h2>Step 2: BRENDA kcat<a class="headerlink" href="#step-2-brenda-kcat" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 2: BRENDA kcat</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to deal BRENDA textfile...&quot;</span><span class="p">)</span>
+<span class="n">parse_brenda_textfile</span><span class="p">(</span><span class="n">brenda_textfile_path</span><span class="p">,</span> <span class="n">autopacmen_folder</span><span class="p">,</span> <span class="n">brenda_json_path</span><span class="p">,</span> <span class="n">brenda_json_path2</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BRENDA textfile done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to deal BRENDA textfile...
+WARNING: BRENDA text file line 3.6.1.34 (transferred to  EC 7.1.2.2, H+-transporting two-sector ATPase) is not interpretable!
+WARNING: BRENDA text file line 3.6.3.17 (transferred to subgroup EC 7.5.2.) is not interpretable!
+BRENDA textfile done!
+
+0:00:05.697793
+</pre></div>
+</div>
+</section>
+<section id="step-3-select-brenda-kcat-for-model">
+<h2>Step 3: Select Brenda kcat for model<a class="headerlink" href="#step-3-select-brenda-kcat-for-model" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 3: Select Brenda kcat for model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to deal brenda json for model...&quot;</span><span class="p">)</span>
+<span class="n">parse_brenda_json_for_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">,</span> <span class="n">brenda_json_path</span><span class="p">,</span> <span class="n">brenda_output_json_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BRENDA json for model done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to deal brenda json for model...
+BRENDA json for model done!
+
+0:00:04.686739
+</pre></div>
+</div>
+</section>
+<section id="step-4-sabio-rk-kcat-for-model">
+<h2>Step 4: SABIO-RK kcat for model<a class="headerlink" href="#step-4-sabio-rk-kcat-for-model" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 4: SABIO-RK kcat for model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting EC numbers kcat search in SABIO-RK...&quot;</span><span class="p">)</span>
+<span class="n">parse_sabio_rk_for_model_with_sbml</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">,</span> <span class="n">sabio_rk_json_path</span><span class="p">,</span> <span class="n">bigg_id_name_mapping_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SABIO-RK done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting EC numbers kcat search in SABIO-RK...
+SABIO-RK done!
+
+0:20:05.752679
+</pre></div>
+</div>
+</section>
+<section id="step-5-brenda-and-sabio-rk-kcat-combined">
+<h2>Step 5: Brenda and SABIO-RK kcat combined<a class="headerlink" href="#step-5-brenda-and-sabio-rk-kcat-combined" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 5: Brenda and SABIO-RK kcat combined</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Combining kcat database...&quot;</span><span class="p">)</span>
+<span class="n">create_combined_kcat_database</span><span class="p">(</span><span class="n">sabio_rk_json_path</span><span class="p">,</span> <span class="n">brenda_output_json_path</span><span class="p">,</span> <span class="n">combined_output_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Combining kcat database done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Combining kcat database...
+Combining kcat database done!
+
+0:00:00.470836
+</pre></div>
+</div>
+</section>
+<section id="step-6-subunit-number-of-each-reaction">
+<h2>Step 6: subunit number of each reaction<a class="headerlink" href="#step-6-subunit-number-of-each-reaction" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 6: subunit number of each reaction</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to fetch subunit number of each enzyme&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\.xml&#39;</span><span class="p">,</span><span class="n">sbml_path</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\.json&#39;</span><span class="p">,</span><span class="n">sbml_path</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">load_json_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">)</span>
+<span class="n">get_gene_subunitDescription</span><span class="p">(</span><span class="n">sub_description_path</span><span class="p">,</span><span class="n">model</span><span class="p">)</span><span class="c1">#从uniprot的api下载，运行一次就行</span>
+<span class="n">subbnumdf</span> <span class="o">=</span> <span class="n">get_subunit_number</span><span class="p">(</span><span class="n">sub_description_path</span><span class="p">,</span><span class="n">gene_subnum_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculation done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to fetch subunit number of each enzyme
+Calculation done!
+
+0:00:00.132096
+</pre></div>
+</div>
+</section>
+<section id="step-7-get-mw-for-model-gene-must-be-uniprot-id">
+<h2>Step 7: get mw for model gene (must be uniprot ID)<a class="headerlink" href="#step-7-get-mw-for-model-gene-must-be-uniprot-id" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 7: get mw for model gene (must be uniprot ID)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting UniProt ID&lt;-&gt;Protein mass search using UniProt...&quot;</span><span class="p">)</span>
+<span class="n">get_protein_mass_mapping_from_local</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">,</span> <span class="n">autopacmen_folder</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">uniprot_data_file</span><span class="p">)</span>
+<span class="n">get_reaction_mw</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">,</span><span class="n">autopacmen_folder</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">reaction_mw_path</span><span class="p">,</span> <span class="n">gene_subnum_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Protein ID&lt;-&gt;Mass mapping done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting UniProt ID&lt;-&gt;Protein mass search using UniProt...
+Protein ID&lt;-&gt;Mass mapping done!
+
+0:00:21.431180
+</pre></div>
+</div>
+</section>
+<section id="step-8-kcat-assignment-for-model-include-sa">
+<h2>Step 8: kcat assignment for model(include sa)<a class="headerlink" href="#step-8-kcat-assignment-for-model-include-sa" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 8: kcat assignment for model(include sa)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to assign kcat for model...&quot;</span><span class="p">)</span>
+<span class="n">get_reactions_kcat_mapping</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">,</span> <span class="n">autopacmen_folder</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">organism</span><span class="p">,</span> <span class="n">combined_output_path</span><span class="p">,</span><span class="n">brenda_json_path2</span><span class="p">,</span> <span class="n">reaction_mw_path</span><span class="p">,</span><span class="n">protein_kcat_database_path</span><span class="p">,</span><span class="n">kcat_gap_fill</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kcat assignment done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to assign kcat for model...
+kcat assignment done!
+
+0:00:09.861095
+</pre></div>
+</div>
+</section>
+<section id="step-9-get-reaction-kcat-mw-for-model">
+<h2>Step 9: get_reaction_kcat_mw for model<a class="headerlink" href="#step-9-get-reaction-kcat-mw-for-model" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 9: get_reaction_kcat_mw for model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to get reaction kcat_mw for model...&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\.xml&#39;</span><span class="p">,</span><span class="n">sbml_path</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\.json&#39;</span><span class="p">,</span><span class="n">sbml_path</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">load_json_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">)</span>
+<span class="n">get_reaction_kcat_mw</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">autopacmen_folder</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">reaction_gap_fill</span><span class="p">,</span><span class="n">gene_subnum_path</span><span class="p">,</span><span class="n">reaction_kcat_mw_path</span><span class="p">)</span>       
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reaction kcat_mw done!&quot;</span><span class="p">)</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to get reaction kcat_mw for model...
+Default kcat is: 112645.64147536599
+Reaction kcat_mw done!
+0:00:15.806192
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../1.Model_Preview/index.html" class="btn btn-neutral float-left" title="1.Model Preview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../3.Get_Reaction_Kcat_DLKcat/index.html" class="btn btn-neutral float-right" title="3.Get Reaction Kcat Using DLKcat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BioDesign Center.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

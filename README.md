@@ -1,2 +1,1 @@
-# ECMpy-document
-User Manual for ECMpy
+# ECMpy2

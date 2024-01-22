@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.Get Reaction Kcat Using DLKcat &mdash; ECMpy2.0-RTD v2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.EcModel Calibration" href="../4.EcModel_Calibration/index.html" />
+    <link rel="prev" title="2.Get Reaction Kcat Using AutoPACMEN" href="../2.Get_Reaction_Kcat_AutoPACMEN/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ECMpy2.0-RTD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../1.Model_Preview/index.html">1.Model Preview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../2.Get_Reaction_Kcat_AutoPACMEN/index.html">2.Get Reaction Kcat Using AutoPACMEN</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3.Get Reaction Kcat Using DLKcat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-0-read-gem">Step 0: read GEM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-1-subunit-number-of-each-reaction">Step 1: subunit number of each reaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-2-convert-metbolites-bigg-id-to-smiles">Step 2: convert metbolites bigg id to smiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-3-get-protein-sequence-and-mass-in-model">Step 3: get protein sequence and mass in model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-4-split-the-substrate-of-reactions-to-match-the-gene">Step 4: split the substrate of reactions to match the gene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-5-combine-the-reaction-substrate-gene-protein-sequnce-mass-and-formate-dlkcat-input-file">Step 5: combine the reaction–substrate–gene–protein_sequnce–mass and formate DLKcat input file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-6-use-dlkcat-calculate-kcat">Step 6: use DLKcat calculate kcat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-7-get-the-kcat-mw-file">Step 7: get the kcat_mw file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../4.EcModel_Calibration/index.html">4.EcModel Calibration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.EcModel_Analysis/index.html">5.EcModel Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5.EcModel_Analysis/index.html#trade-off-simulation">Trade-off simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.EcModel_ME/index.html">6.EcModel_ME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../6.EcModel_ME/index.html#determine-targets-based-on-fesof">Determine targets based on FESOF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../7.One_click_modeling/index.html">7. One Click Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoPACMEN_function.html">AutoPACMEN_function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ECMpy_function.html">ECMpy_function</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_ecGEM_onestop.html">get_ecGEM_onestop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model.html">model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../prediction_for_input.html">prediction_for_input</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ECMpy2.0-RTD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">3.Get Reaction Kcat Using DLKcat</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/3.Get_Reaction_Kcat_DLKcat/index.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="get-reaction-kcat-using-dlkcat">
+<h1>3.Get Reaction Kcat Using DLKcat<a class="headerlink" href="#get-reaction-kcat-using-dlkcat" title="Permalink to this heading"></a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cobra</span>
+<span class="kn">import</span> <span class="nn">datetime</span> 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="c1"># from script.ECMpy_function import *</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;./script/&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ECMpy_function</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dlkcat_folder</span> <span class="o">=</span> <span class="s2">&quot;./analysis/get_kcat_mw_by_DLkcat/&quot;</span>
+<span class="n">create_file</span><span class="p">(</span><span class="n">dlkcat_folder</span><span class="p">)</span>
+
+<span class="c1"># input files</span>
+<span class="n">sbml_path</span> <span class="o">=</span> <span class="s2">&quot;./data/iML1515_new.xml&quot;</span>
+
+<span class="c1"># output files</span>
+<span class="n">gene_subnum_path</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">gene_subnum.csv&quot;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">sub_description_path</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">get_gene_subunitDescription.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">inchikey_list_file</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">inchikey_list.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">inchikey_list_smilesfile</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">inchikey_list_smiles.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">comdf_file</span><span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">comdf.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">DLouputdf_file</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">DLoutput.tsv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">metdf_outfile</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">metabolites_reactions_gpr_similes_prosequence_mass_dropna.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">metabolites_reactions_gpr_file</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">metabolites_reactions_gpr.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">prodf_file</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">prodf.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">DLinput_file</span><span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">DLinput.tsv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+<span class="n">DL_reaction_kact_mw_file</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">reaction_kcat_MW.csv&#39;</span><span class="o">%</span><span class="n">dlkcat_folder</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Path</span> <span class="n">exists</span>
+</pre></div>
+</div>
+<section id="step-0-read-gem">
+<h2>Step 0: read GEM<a class="headerlink" href="#step-0-read-gem" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 0: read GEM</span>
+<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\.xml&#39;</span><span class="p">,</span><span class="n">sbml_path</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;\.json&#39;</span><span class="p">,</span><span class="n">sbml_path</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">load_json_model</span><span class="p">(</span><span class="n">sbml_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-1-subunit-number-of-each-reaction">
+<h2>Step 1: subunit number of each reaction<a class="headerlink" href="#step-1-subunit-number-of-each-reaction" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 1: subunit number of each reaction</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to fetch subunit number of each enzyme&quot;</span><span class="p">)</span>
+<span class="n">get_gene_subunitDescription</span><span class="p">(</span><span class="n">sub_description_path</span><span class="p">,</span><span class="n">model</span><span class="p">)</span><span class="c1">#Download from the UniProt API, run it once.</span>
+<span class="n">subbnumdf</span> <span class="o">=</span> <span class="n">get_subunit_number</span><span class="p">(</span><span class="n">sub_description_path</span><span class="p">,</span><span class="n">gene_subnum_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculation done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to fetch subunit number of each enzyme
+Start downloading from UniProt...
+[0;38;2;66;227;35m100.00%[0;38;2;186;189;250m|█████████████████████████████|[0;38;2;237;166;178m 0:00:00|1:28:45 [0;38;2;146;52;247m ETC: 07-06 00:02:23[0m[K
+Success downloading! :-)
+Calculation done!
+
+1:28:49.808229
+</pre></div>
+</div>
+</section>
+<section id="step-2-convert-metbolites-bigg-id-to-smiles">
+<h2>Step 2: convert metbolites bigg id to smiles<a class="headerlink" href="#step-2-convert-metbolites-bigg-id-to-smiles" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 2: convert metbolites bigg id to smiles </span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to convert metbolites bigg id to smiles...&quot;</span><span class="p">)</span>
+<span class="n">metdf_name</span> <span class="o">=</span> <span class="n">get_met_bigg_id</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">inchkeydf</span> <span class="o">=</span> <span class="n">convert_bigg_met_to_inchikey</span><span class="p">(</span><span class="n">metdf_name</span><span class="p">[</span><span class="s1">&#39;met&#39;</span><span class="p">],</span><span class="n">inchikey_list_file</span><span class="p">)</span><span class="c1">#from BIGG</span>
+<span class="c1"># inchkeydf = pd.read_csv(&#39;./data/inchikey_list.csv&#39;)</span>
+<span class="n">smilesdf</span> <span class="o">=</span> <span class="n">convert_inchikey_to_smiles</span><span class="p">(</span><span class="n">inchkeydf</span><span class="p">,</span><span class="n">inchikey_list_smilesfile</span><span class="p">)</span><span class="c1">#from pubchem</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converting done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to convert metbolites bigg id to smiles...
+Converting...
+[0;38;2;66;227;35m100.00%[0;38;2;190;231;233m|█████████████████████████████|[0;38;2;28;97;15m 0:00:00|1:09:21 [0;38;2;146;52;247m ETC: 07-06 10:52:44[0m[K
+[] try again later
+Fail secure!
+Converting done!
+
+2:01:59.345124
+</pre></div>
+</div>
+</section>
+<section id="step-3-get-protein-sequence-and-mass-in-model">
+<h2>Step 3: get protein sequence and mass in model<a class="headerlink" href="#step-3-get-protein-sequence-and-mass-in-model" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 3: get protein sequence and mass in model </span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to get protein sequence and mass in model...&quot;</span><span class="p">)</span>
+<span class="n">subbnumdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">gene_subnum_path</span><span class="p">)</span>
+<span class="n">prodf</span> <span class="o">=</span> <span class="n">get_model_protein_sequence_and_mass</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">subbnumdf</span><span class="p">,</span><span class="n">prodf_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Getting done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to get protein sequence and mass in model...
+Getting done!
+
+0:22:14.932906
+</pre></div>
+</div>
+</section>
+<section id="step-4-split-the-substrate-of-reactions-to-match-the-gene">
+<h2>Step 4: split the substrate of reactions to match the gene<a class="headerlink" href="#step-4-split-the-substrate-of-reactions-to-match-the-gene" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 4: split the substrate of reactions to match the gene</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to split the substrate of reactions to match the gene...&quot;</span><span class="p">)</span>
+<span class="n">spdf</span> <span class="o">=</span> <span class="n">split_substrate_to_match_gene</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">metabolites_reactions_gpr_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Splitting done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to split the substrate of reactions to match the gene...
+Splitting done!
+
+0:00:10.310155
+</pre></div>
+</div>
+</section>
+<section id="step-5-combine-the-reaction-substrate-gene-protein-sequnce-mass-and-formate-dlkcat-input-file">
+<h2>Step 5: combine the reaction–substrate–gene–protein_sequnce–mass and formate DLKcat input file<a class="headerlink" href="#step-5-combine-the-reaction-substrate-gene-protein-sequnce-mass-and-formate-dlkcat-input-file" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 5: combine the reaction--substrate--gene--protein_sequnce--mass and formate DLKcat input file</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to combine data...&quot;</span><span class="p">)</span>
+<span class="n">metdf_name</span> <span class="o">=</span> <span class="n">get_met_bigg_id</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">smilesdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">inchikey_list_smilesfile</span><span class="p">)</span>
+<span class="n">spdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">metabolites_reactions_gpr_file</span><span class="p">)</span>
+<span class="n">prodf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">prodf_file</span><span class="p">)</span>
+<span class="n">comdf</span> <span class="o">=</span> <span class="n">combine_reactions_simles_sequence</span><span class="p">(</span><span class="n">spdf</span><span class="p">,</span><span class="n">smilesdf</span><span class="p">,</span><span class="n">prodf</span><span class="p">,</span><span class="n">comdf_file</span><span class="p">)</span>
+<span class="n">DLinputdf</span> <span class="o">=</span> <span class="n">generate_DLKCAT_input</span><span class="p">(</span><span class="n">comdf</span><span class="p">,</span><span class="n">metdf_name</span><span class="p">,</span><span class="n">metdf_outfile</span><span class="p">,</span><span class="n">DLinput_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Combinning done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to combine data...
+DLKCAT input file generated
+Combinning done!
+
+0:00:03.239874
+</pre></div>
+</div>
+</section>
+<section id="step-6-use-dlkcat-calculate-kcat">
+<h2>Step 6: use DLKcat calculate kcat<a class="headerlink" href="#step-6-use-dlkcat-calculate-kcat" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 6: use DLKcat calculate kcat</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to Use DLKcat calculate kcat...&quot;</span><span class="p">)</span>
+<span class="n">cmd_str</span> <span class="o">=</span> <span class="s2">&quot;python ./script/prediction_for_input.py ./analysis/get_kcat_mw_by_DLkcat/DLinput.tsv ./analysis/get_kcat_mw_by_DLkcat/DLoutput.tsv&quot;</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd_str</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DLKcat done!&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to Use DLKcat calculate kcat...
+./analysis/get_kcat_mw_by_DLkcat/DLinput.tsv
+It&#39;s time to start the prediction!
+-----------------------------------
+
+It takes 1198.0919036865234 seconds to predict Kcat values!
+-----------------------------------
+Prediction success!
+DLKcat done!
+
+0:20:00.334137
+</pre></div>
+</div>
+</section>
+<section id="step-7-get-the-kcat-mw-file">
+<h2>Step 7: get the kcat_mw file<a class="headerlink" href="#step-7-get-the-kcat-mw-file" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">starttime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="c1"># Step 7: get the kcat_mw file</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting to get reaction kcat_mw for model......&quot;</span><span class="p">)</span>
+<span class="n">DLouputdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DLouputdf_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">comdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">comdf_file</span><span class="p">)</span>
+<span class="n">DL_reaction_kact_mw</span> <span class="o">=</span> <span class="n">DL_kcat_mw_calculation</span><span class="p">(</span><span class="n">DLouputdf</span><span class="p">,</span> <span class="n">comdf</span><span class="p">)</span>
+<span class="n">DL_reaction_kact_mw</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">DL_reaction_kact_mw_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reaction kcat_mw done!&quot;</span><span class="p">)</span>
+
+<span class="n">endtime</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">endtime</span><span class="o">-</span><span class="n">starttime</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Starting to get reaction kcat_mw for model......
+DL_reaction_kact_mw generated
+Reaction kcat_mw done!
+0:00:00.084022
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../2.Get_Reaction_Kcat_AutoPACMEN/index.html" class="btn btn-neutral float-left" title="2.Get Reaction Kcat Using AutoPACMEN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../4.EcModel_Calibration/index.html" class="btn btn-neutral float-right" title="4.EcModel Calibration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, BioDesign Center.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
