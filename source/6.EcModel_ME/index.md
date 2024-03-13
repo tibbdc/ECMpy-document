@@ -1,4 +1,4 @@
-# 6.EcModel_ME
+# Import related functions
 
 
 ```python
@@ -9,6 +9,7 @@ sys.path.append(r'./script/')
 from ECMpy_function import *
 ```
 
+# Input and output files
 
 
 ```python
@@ -26,7 +27,7 @@ enzcost_diff_selcet_file = './analysis/enzcost_diff_%s_%.2g_select.csv'%(obj,sub
 FSEOF_file = './analysis/FESEOF_%s_%.2g.csv'%(obj,substrate_con)
 ```
 
-## Directly determining targets based on enzyme abundance
+# Directly determining targets based on enzyme abundance
 
 
 ```python
@@ -173,7 +174,7 @@ enzcost_select.head(10)
 
 
 
-##  Determine targets based on the fold changes of enzyme cost 
+#  Determine targets based on the fold changes of enzyme cost 
 
 
 ```python
@@ -189,7 +190,7 @@ enzcost_diff_select.head(10)
 
     /home/maozt/anaconda3/envs/ECMpy2/lib/python3.7/site-packages/pandas/core/arraylike.py:364: RuntimeWarning: invalid value encountered in log2
       result = getattr(ufunc, method)(*inputs, **kwargs)
-    
+
 
 
 
@@ -339,7 +340,7 @@ enzcost_diff_select.head(10)
 
 
 
-## Determine targets based on FESOF
+# Determine targets based on FESOF
 
 
 ```python
@@ -362,7 +363,7 @@ FSEOFdf_done.head(10)
     
     See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
       always_up['regulation'] = 'up'
-    
+
 
 
 

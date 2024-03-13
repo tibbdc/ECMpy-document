@@ -1,4 +1,5 @@
-# 2.Get Reaction Kcat Using AutoPACMEN
+## Import related functions
+
 
 ```python
 import cobra
@@ -9,6 +10,7 @@ from AutoPACMEN_function import *
 from ECMpy_function import *
 ```
 
+## Input and output files
 
 
 ```python
@@ -16,7 +18,7 @@ from ECMpy_function import *
 autopacmen_folder = "./analysis/get_kcat_mw_by_AutoPACMEN/"
 kcat_gap_fill= 'mean'#'mean'#'median'
 reaction_gap_fill='mean'
-sbml_path = "./data/iML1515_new.xml"
+sbml_path = "./data/iML1515R.xml"
 organism = "Escherichia coli"
 project_name = "iML1515_%s"%kcat_gap_fill
 create_file(autopacmen_folder)
@@ -39,8 +41,9 @@ reaction_kcat_mw_path = '%sreaction_kcat_MW.csv'%autopacmen_folder
 ```
 
     Path exists
-    
 
+
+## Get reaction kcat_mw using AutoPacmen
 
 ## Step 1: get bigg metbolite
 
@@ -61,7 +64,7 @@ print(endtime-starttime)
     BIGG metabolites text file done!
     
     0:00:00.073214
-    
+
 
 ## Step 2: BRENDA kcat
 
@@ -84,7 +87,7 @@ print(endtime-starttime)
     BRENDA textfile done!
     
     0:00:05.697793
-    
+
 
 ## Step 3: Select Brenda kcat for model
 
@@ -105,7 +108,7 @@ print(endtime-starttime)
     BRENDA json for model done!
     
     0:00:04.686739
-    
+
 
 ## Step 4: SABIO-RK kcat for model
 
@@ -126,7 +129,7 @@ print(endtime-starttime)
     SABIO-RK done!
     
     0:20:05.752679
-    
+
 
 ## Step 5: Brenda and SABIO-RK kcat combined
 
@@ -147,7 +150,7 @@ print(endtime-starttime)
     Combining kcat database done!
     
     0:00:00.470836
-    
+
 
 ## Step 6: subunit number of each reaction
 
@@ -173,7 +176,7 @@ print(endtime-starttime)
     Calculation done!
     
     0:00:00.132096
-    
+
 
 ## Step 7: get mw for model gene (must be uniprot ID)
 
@@ -195,7 +198,7 @@ print(endtime-starttime)
     Protein ID<->Mass mapping done!
     
     0:00:21.431180
-    
+
 
 ## Step 8: kcat assignment for model(include sa)
 
@@ -216,7 +219,7 @@ print(endtime-starttime)
     kcat assignment done!
     
     0:00:09.861095
-    
+
 
 ## Step 9: get_reaction_kcat_mw for model
 
@@ -240,7 +243,7 @@ print(endtime-starttime)
     Default kcat is: 112645.64147536599
     Reaction kcat_mw done!
     0:00:15.806192
-    
+
 
 
 ```python

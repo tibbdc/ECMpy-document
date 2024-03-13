@@ -17,7 +17,7 @@ Welcome to ECMpy2.0's documentation!
    5.EcModel_Analysis/index
    6.EcModel_ME/index
    7.One_click_modeling/index
-
+   8.BiGG_to_ecGEM/index
 Indices and tables
 ==================
 

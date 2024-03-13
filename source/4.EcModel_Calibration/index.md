@@ -1,4 +1,4 @@
-# 4.EcModel Calibration
+## Import related functions
 
 
 ```python
@@ -11,6 +11,7 @@ sys.path.append(r'./script/')
 from ECMpy_function import *
 ```
 
+# Input and output files
 
 
 ```python
@@ -27,7 +28,7 @@ concentration=10
 obj='BIOMASS_Ec_iML1515_core_75p37M'# CG_biomass_cgl_ATCC13032 EX_lys_L_e
 
 #Originl ecmodel and result file
-ecModel_file="./model/iML1515_irr_enz_constraint_test.json"
+ecModel_file="./model/iML1515_irr_enz_constraint.json"
 fluxes_infile_ori = './analysis/ECMpy_solution_BIOMASS_Ec_iML1515_core_75p37M_pfba.csv'
 reaction_kcat_MW_file = "./analysis/get_kcat_mw_by_%s/reaction_kcat_MW.csv"%method
 need_change_reaction_list=[]
@@ -36,11 +37,11 @@ round_num=1
 reaction_kcat_mw = pd.read_csv(reaction_kcat_MW_file, index_col=0)
 
 #ecmodel and result file
-json_output_file = './model/iML1515_irr_enz_constraint_adj_test.json'
+json_output_file = './model/iML1515_irr_enz_constraint_adj.json'
 reaction_kcat_MW_outfile = './analysis/get_kcat_mw_by_%s/reaction_change_by_enzuse.csv'%method
 ```
 
-## Calibration kcat according Enzyme usage 
+# Calibration kcat according Enzyme usage 
 
 
 ```python
@@ -318,7 +319,7 @@ reaction_kcat_mw.to_csv(reaction_kcat_MW_outfile)
     Changed reaction: 
     ['PRFGS', 'FBA_num1', 'PFL_num3', '3OAS121', '3OAS161', '3OAS141', 'PSERT', 'PAPSR2_num2', '3OAR60', '3OAR80', '3OAR100', '3OAR40', 'PGCD', 'PFK_num2', 'PSP_L', 'ACCOAC', 'PTAr_num2', '3OAR120', '3OAR140', '3OAR161', '3OAR121', '3OAR141', 'ADSS', '3OAR160', 'ACONTa_num1', 'IPPS', 'SADT2', 'GLNS', 'ASNS2_num1', 'AICART', 'TPI', 'THD2pp', 'PAPPT3', 'AIRC2', 'ASPK_num3', 'THRS', 'CS', 'IMPD', 'ANS']
     Calibration round 49 : 0.40133927002029507
-    
+
 
 
 ```python

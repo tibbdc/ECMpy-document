@@ -1,5 +1,4 @@
-# 1.Model Preview
-## Import related functions
+# Import related functions
 
 
 ```python
@@ -11,7 +10,7 @@ from ECMpy_function import *
 
 
 ```python
-model_file = "./data/iML1515_new.xml"
+model_file = "./data/iML1515R.xml"
 bigg_met_file = './data/bigg_models_metabolites.txt'
 
 Determine_suitable_ecGEM(model_file,bigg_met_file)
