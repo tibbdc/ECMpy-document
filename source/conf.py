@@ -23,7 +23,7 @@ extensions = [
 ]
 source_suffix = {
     '.rst': 'restructuredtext',
-    '.txt': 'markdown',
+
 
     }
 myst_enable_extensions = [
