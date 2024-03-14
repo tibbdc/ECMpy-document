@@ -16,10 +16,17 @@ release = 'v2.0'
 
 
 extensions = [
-    'recommonmark',
-    'sphinx_markdown_tables'
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
 ]
 
+myst_enable_extensions = [
+    "tasklist",
+    "deflist",
+    "dollarmath",
+    ]
 templates_path = ['_templates']
 exclude_patterns = []
 
