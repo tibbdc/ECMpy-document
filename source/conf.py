@@ -17,8 +17,7 @@ release = 'v2.0'
 
 extensions = [
     'recommonmark',
-    'sphinx_markdown_tables'
-
+    'sphinx_markdown_tables',
 ]
 
 
