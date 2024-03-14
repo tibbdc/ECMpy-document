@@ -1,4 +1,5 @@
-## Import related functions
+# 3.Get_Reaction_Kcat_AutoPACMEN
+### Import related functions
 
 
 ```python
@@ -13,7 +14,7 @@ sys.path.append(r'./script/')
 from ECMpy_function import *
 ```
 
-# Input and output files
+### Input and output files
 
 
 ```python
@@ -40,9 +41,9 @@ DL_reaction_kact_mw_file='%sreaction_kcat_MW.csv'%dlkcat_folder
     Path exists
 
 
-# Get reaction kcat_mw using DLKcat
+## Get reaction kcat_mw using DLKcat
 
-## Step 0: read GEM
+### Step 0: read GEM
 
 
 ```python
@@ -53,7 +54,7 @@ elif re.search('\.json',sbml_path):
     model = cobra.io.json.load_json_model(sbml_path)
 ```
 
-## Step 1: subunit number of each reaction
+### Step 1: subunit number of each reaction
 
 
 ```python
@@ -78,7 +79,7 @@ print(endtime-starttime)
     1:28:49.808229
 
 
-## Step 2: convert metbolites bigg id to smiles 
+### Step 2: convert metbolites bigg id to smiles 
 
 
 ```python
@@ -106,7 +107,7 @@ print(endtime-starttime)
     2:01:59.345124
 
 
-## Step 3: get protein sequence and mass in model 
+### Step 3: get protein sequence and mass in model 
 
 
 ```python
@@ -128,7 +129,7 @@ print(endtime-starttime)
     0:22:14.932906
 
 
-## Step 4: split the substrate of reactions to match the gene
+### Step 4: split the substrate of reactions to match the gene
 
 
 ```python
@@ -149,7 +150,7 @@ print(endtime-starttime)
     0:00:10.310155
 
 
-## Step 5: combine the reaction--substrate--gene--protein_sequnce--mass and formate DLKcat input file
+### Step 5: combine the reaction--substrate--gene--protein_sequnce--mass and formate DLKcat input file
 
 
 ```python
@@ -176,7 +177,7 @@ print(endtime-starttime)
     0:00:03.239874
 
 
-## Step 6: use DLKcat calculate kcat
+### Step 6: use DLKcat calculate kcat
 
 
 ```python
@@ -1878,7 +1879,7 @@ print(endtime-starttime)
     0:20:00.334137
 
 
-## Step 7: get the kcat_mw file
+### Step 7: get the kcat_mw file
 
 
 ```python

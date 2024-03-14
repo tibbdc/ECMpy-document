@@ -13,11 +13,12 @@ Welcome to ECMpy2.0's documentation!
    1.Model_Preview/index
    2.Get_Reaction_Kcat_AutoPACMEN/index
    3.Get_Reaction_Kcat_DLKcat/index
-   4.EcModel_Calibration/index
-   5.EcModel_Analysis/index
-   6.EcModel_ME/index
-   7.One_click_modeling/index
-   8.BiGG_to_ecGEM/index
+   4.Get_ecModel_using_ECMpy/index
+   5.EcModel_Calibration/index
+   6.EcModel_Analysis/index
+   7.EcModel_ME/index
+   8.One_click_modeling/index
+   9.BiGG_to_ecGEM/index
 Indices and tables
 ==================
 

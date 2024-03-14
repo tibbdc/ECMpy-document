@@ -1,4 +1,5 @@
-## Import related functions
+# 2.Get_Reaction_Kcat_AutoPACMEN
+### Import related functions
 
 
 ```python
@@ -10,7 +11,7 @@ from AutoPACMEN_function import *
 from ECMpy_function import *
 ```
 
-## Input and output files
+### Input and output files
 
 
 ```python
@@ -45,7 +46,7 @@ reaction_kcat_mw_path = '%sreaction_kcat_MW.csv'%autopacmen_folder
 
 ## Get reaction kcat_mw using AutoPacmen
 
-## Step 1: get bigg metbolite
+### Step 1: get bigg metbolite
 
 
 ```python
@@ -66,7 +67,7 @@ print(endtime-starttime)
     0:00:00.073214
 
 
-## Step 2: BRENDA kcat
+### Step 2: BRENDA kcat
 
 
 ```python
@@ -89,7 +90,7 @@ print(endtime-starttime)
     0:00:05.697793
 
 
-## Step 3: Select Brenda kcat for model
+### Step 3: Select Brenda kcat for model
 
 
 ```python
@@ -110,7 +111,7 @@ print(endtime-starttime)
     0:00:04.686739
 
 
-## Step 4: SABIO-RK kcat for model
+### Step 4: SABIO-RK kcat for model
 
 
 ```python
@@ -131,7 +132,7 @@ print(endtime-starttime)
     0:20:05.752679
 
 
-## Step 5: Brenda and SABIO-RK kcat combined
+### Step 5: Brenda and SABIO-RK kcat combined
 
 
 ```python
@@ -152,7 +153,7 @@ print(endtime-starttime)
     0:00:00.470836
 
 
-## Step 6: subunit number of each reaction
+### Step 6: subunit number of each reaction
 
 
 ```python
@@ -178,7 +179,7 @@ print(endtime-starttime)
     0:00:00.132096
 
 
-## Step 7: get mw for model gene (must be uniprot ID)
+### Step 7: get mw for model gene (must be uniprot ID)
 
 
 ```python
@@ -200,7 +201,7 @@ print(endtime-starttime)
     0:00:21.431180
 
 
-## Step 8: kcat assignment for model(include sa)
+### Step 8: kcat assignment for model(include sa)
 
 
 ```python
@@ -221,7 +222,7 @@ print(endtime-starttime)
     0:00:09.861095
 
 
-## Step 9: get_reaction_kcat_mw for model
+### Step 9: get_reaction_kcat_mw for model
 
 
 ```python
