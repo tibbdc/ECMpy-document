@@ -16,6 +16,8 @@ release = 'v2.0'
 
 
 extensions = [
+    'recommonmark',
+    'sphinx_markdown_tables'
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.todo',
