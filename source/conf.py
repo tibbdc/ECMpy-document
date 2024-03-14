@@ -42,4 +42,4 @@ html_theme_options = {
     }
 html_logo = "./_static/logo.png"
 html_static_path = ['_static']
-html_css_files = ['my_custom.js']
+html_js_files = ['my_custom.js']
