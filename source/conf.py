@@ -20,11 +20,7 @@ extensions = [
     'sphinx_markdown_tables'
 
 ]
-source_suffix = {
-    '.rst': 'restructuredtext',
 
-
-    }
 myst_enable_extensions = [
     "tasklist",
     "deflist",
