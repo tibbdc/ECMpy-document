@@ -2,7 +2,7 @@
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
-from recommonmark.parser import CommonMarkParser
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
@@ -24,7 +24,7 @@ extensions = [
 source_suffix = {
     '.rst': 'restructuredtext',
     '.txt': 'markdown',
-    '.md': 'CommonMarkParser',
+    '.md': 'markdown',
     }
 myst_enable_extensions = [
     "tasklist",
