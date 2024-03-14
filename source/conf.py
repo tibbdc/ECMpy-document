@@ -5,8 +5,7 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-import sys
-sys.setrecursionlimit(100000000)
+
 project = 'ECMpy2.0'
 copyright = '2024, BioDesign Center'
 author = 'BioDesign Center'
