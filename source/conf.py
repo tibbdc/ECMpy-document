@@ -24,7 +24,7 @@ extensions = [
 source_suffix = {
     '.rst': 'restructuredtext',
     '.txt': 'markdown',
-    '.md': 'markdown',
+
     }
 myst_enable_extensions = [
     "tasklist",
