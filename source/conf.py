@@ -29,7 +29,7 @@ myst_enable_extensions = [
     "tasklist",
     "deflist",
     "dollarmath",
-
+]
 templates_path = ['_templates']
 exclude_patterns = []
 
